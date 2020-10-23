@@ -1,0 +1,27 @@
+swagger:
+  title: J-Blog系统接口文档
+  description:  /admin开头的接口是需要身份验证的接口，建议仅管理端使用；/portal开头的接口是公共接口，不需要身份认证，用于博客前台页面
+  exclude-path: /error # 剔除请求
+
+spring:
+  profiles:
+    active: prod
+  http:
+    encoding:
+      force-response: true
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 100MB
+
+j-blog:
+  defaultAvatarName: static/user.jpg
+  fileResources:
+    path: D:/Documents/file/20201023/
+    cachePath: D:/Documents/file/20201023/cache/
+    #下面的请求路径会映射到上传的文件路径
+    path-pattern: /resources/**
+  staticResources:
+    #下面的请求路径会映射到静态资源路径
+    path-pattern: /static/**
+

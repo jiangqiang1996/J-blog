@@ -1,0 +1,44 @@
+server:
+  port: 8002
+  servlet:
+    context-path: /j-blog # 上下文件路径，请求前缀 ip:port/j-blog
+
+
+spring:
+  profiles: prod
+  thymeleaf:
+    cache: false
+  application:
+    name: article-server # 应用名
+  # 数据源配置
+  datasource:
+    username: root
+    password: suixin
+    url: jdbc:mysql://127.0.0.1:3306/j_blog?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B8&allowMultiQueries=true
+    #mysql8版本以上驱动包指定新的驱动类
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    #   数据源其他配置, 在 DruidConfig配置类中手动绑定
+    initialSize: 8
+    minIdle: 5
+    maxActive: 20
+    maxWait: 60000
+    timeBetweenEvictionRunsMillis: 60000
+    minEvictableIdleTimeMillis: 300000
+    validationQuery: SELECT 1 FROM DUAL
+
+mybatis-plus:
+  type-aliases-package: xin.jiangqiang.blog.entities
+  # xxxMapper.xml 路径
+  mapper-locations: classpath*:xin/jiangqiang/blog/mapper/**/*.xml
+# 日志级别，会打印sql语句
+logging:
+  level:
+    xin.jiangqiang.blog.mapper: debug
+    root: info
+
+j-blog:
+  jwtConfig:
+    secretKey: suixin123 # jwt令牌密钥
+    expires: 604800 # 单位秒，7天
+  markdownConfig:
+    luteUrl: http://localhost:8249

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="xin.jiangqiang.blog.mapper.ArticleMapper">
+
+    <select id="listByTag" resultType="xin.jiangqiang.blog.entities.Article">
+        select id,articleTitle,articleAbstract,articleAbstractText,articleTags,articleAuthorId,articleViewCount,
+        articleContent,articlePutTop,articleCreated,articleUpdated,articleStatus
+        from j_blog_article where id in
+        (select articleId from j_blog_tag_article where tagId=#{tagId})
+        and articleStatus in
+        <foreach collection="articleStatusList" item="articleStatus" index="index" open="(" close=")" separator=",">
+            #{articleStatus}
+        </foreach>
+    </select>
+</mapper>
