@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import xin.jiangqiang.blog.entities.User;
 import xin.jiangqiang.blog.req.PasswordREQ;
+import xin.jiangqiang.blog.req.UserREQ;
 import xin.jiangqiang.blog.service.IUserService;
 import xin.jiangqiang.blog.util.base.Result;
 
@@ -31,7 +32,11 @@ public class UserController {
 
     @ApiOperation("注册，只能注册一个用户，需要先调用上一个接口查询能否注册")
     @PostMapping("/reg")
-    public Result reg(@RequestBody User user) {
+    public Result reg(@RequestBody UserREQ userREQ) {
+        User user=new User();
+        user.setUserAccount(userREQ.getUserAccount());
+        user.setUserPassword(userREQ.getUserPassword());
+        user.setUserName(userREQ.getUserName());
         return userService.addUser(user);
     }
 

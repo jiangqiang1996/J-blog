@@ -64,6 +64,11 @@ public final class Result implements Serializable {
         return new Result(ResultEnum.ERROR.getCode(), message, null);
     }
 
+    public static Result error(String message, Object data) {
+        logger.debug("返回错误：code={}, message={}, data={}", ResultEnum.ERROR.getCode(), message, data);
+        return new Result(ResultEnum.ERROR.getCode(), message, data);
+    }
+
     public static Result build(int code, String message) {
         logger.debug("返回结果：code={}, message={}", code, message);
         return new Result(code, message, null);
@@ -81,6 +86,7 @@ public final class Result implements Serializable {
 
     /**
      * 如果返回一个list，则使用此方法
+     *
      * @param data
      * @return
      */

@@ -2,6 +2,8 @@ package xin.jiangqiang.blog.admin.controller;
 
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.collections.MapUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -85,7 +87,15 @@ public class FileUploadController {
         }
         data.put("errFiles", errFiles);
         data.put("succMap", succMap);
-        return Result.ok("上传成功", data);
+        if (CollectionUtils.isEmpty(errFiles)) {
+            return Result.ok("文件上传成功", data);
+        }else{
+            if (MapUtils.isEmpty(succMap)) {
+                return Result.error("文件上传失败", data);
+            } else {
+                return Result.error("部分文件上传失败，请检查上传日志信息", data);
+            }
+        }
     }
 
 }

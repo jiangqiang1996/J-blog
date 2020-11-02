@@ -42,3 +42,12 @@ j-blog:
     expires: 604800 # 单位秒，7天
   markdownConfig:
     luteUrl: http://localhost:8249
+  defaultAvatarName: static/user.jpg
+  fileResources:
+    path: D:/Documents/file/20201023/
+    cachePath: D:/Documents/file/20201023/cache/
+    #下面的请求路径会映射到上传的文件路径
+    path-pattern: /resources/**
+  staticResources:
+    #下面的请求路径会映射到静态资源路径
+    path-pattern: /static/**
